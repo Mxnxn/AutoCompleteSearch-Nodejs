@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700i&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <h1 class="text-center mt-5" style="color:#222;font-size: 6.7em;font-family:'Poppins',sans-serif;font-weight:600">
+        Auto Complete
+    </h1>
+    <h4 class="text-center text-primary mt-5" style="font-family:'Poppins',sans-serif;font-weight:600">Search : </h4>
+
+    <div class="col-lg-5">
+        <input type="form-control"
+            style="width:400px;height:60px;padding-left:20px;font-family:'Poppins',sans-serif;font-weight:400;margin-left:265px"
+            id="postdata">
+        <div class="border"
+            style="width:400px;margin-left:265px;margin-bottom:20px;font-family:'Poppins',sans-serif;font-weight:400"
+            id="search-result"></div>
+    </div>
+</body>
+
+<script>
+
+    $(document).ready(function () {
+        $("#search-result").css("display", "none");
+    });
+
+    $('#postdata').keyup(debounce(function (e) {
+        console.log(e.which);
+        if (e.which >= 65 && e.which <= 122) {
+            var name = $('#postdata').val();
+            if (name == "" || name.length <= 0) {
+
+                $("#search-result").css("display", "none");
+                $("#search-result").fadeOut();
+            } else {
+                $("#search-result").fadeIn();
+            };
+            var xhr =
+                $.get('/posted/' + name, function (data, status) {
+                    console.log(data);
+                }).done((data) => {
+                    if (data.length === 0) {
+                        $("#search-result").append("<p>No Result</p>");
+                    } else {
+                        var len = data.length;
+
+                        for (var i = 0; i < len; i++) {
+                            x = data[i];
+                            $("#search-result").append('<div class="dropdown-divider"></div><p id="suggestion' + i + '" class="" style="padding-left:20px;font-family:"poppins",sans-serif" onclick="myFunc(this.value)">' + x + ' </p>');
+                        };
+                    }
+                }
+                }).fail(err => {
+                    console.log(err);
+                });
+        } else {
+        $("#search-result").html(" ");
+    }
+    }, 200));
+
+    function myFunc(value) {
+
+    }
+
+
+    function debounce(func, wait, immediate) {
+        var timeout;
+        return function () {
+            var context = this,
+                args = arguments;
+            var later = function () {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
+
+</script>
+
+</html>
