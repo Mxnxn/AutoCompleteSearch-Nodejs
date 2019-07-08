@@ -11,8 +11,6 @@ just by removing lines mensioned below :
 ```javascript
 const exphbs = require("express-handlebars");
 ```
-and
-
 ```javascript
 app.engine("handlebars", exphbs({ defaultLayout: "index" }));
 app.set("view engine", "handlebars");
