@@ -9,11 +9,13 @@ I've used handlebars but if you want to go with html then you can.
 just by removing lines mensioned below :
 
 ```javascript
- const exphbs = require("express-handlebars");
+const exphbs = require("express-handlebars");
 ```
+and
+
 ```javascript
- app.engine("handlebars", exphbs({ defaultLayout: "index" }));
- app.set("view engine", "handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "index" }));
+app.set("view engine", "handlebars");
 ```
 
 ### Few steps to run this :
