@@ -1,10 +1,10 @@
 # Auto Complete Search :
 
-This Project has built with Express.js and Jquey AJAX by getting data from directly Mongodb in Node.js Environment.
+This Project has built with **Express.js** and **JQuery AJAX** by getting data from directly **Mongodb** in Node.js Environment.
 
 ### About Front-End :
 
-I've used handlebars but if you want to go with html then you can.
+I've used handlebars but if you want to go with **HTML** then you can.
 
 just by removing lines mensioned below :
 
